@@ -3,9 +3,10 @@
 #include <string.h>
 #include <math.h>
 
-#define _POSIX_C_SOURCE 199309L
+#define _XOPEN_SOURCE   600
+#define _POSIX_C_SOURCE 200112L
 
-#include <time.h>
+//#include <time.h>
 #include <unistd.h>
 
 #define MICROSEC_TO_SEC 1000000
@@ -25,7 +26,7 @@ void printStat(int samples, int tdelay) {
 		((double)(tdelay)/MICROSEC_TO_SEC), "secs )");
 }
 
-
+/*
 
 void refresh(int tdelay) {
 
@@ -43,9 +44,11 @@ void refresh(int tdelay) {
 	
 }
 
+*/
 
 
-/*
+
+
 
 void refresh(int tdelay) {
 
@@ -55,7 +58,7 @@ void refresh(int tdelay) {
 	
 }
 
-*/
+
 
 char** initialize_graph(int sample_size) {
 	char** data_graph = (char**) malloc((ROW_NUMBER+1)*sizeof(char*));
