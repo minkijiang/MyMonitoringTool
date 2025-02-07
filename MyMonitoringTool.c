@@ -52,8 +52,17 @@ void refresh(int tdelay) {
 
 void refresh(int tdelay) {
 
+	/*
+
     fflush(stdout);
     usleep(tdelay);
+    printf("\x1b[%d;%df", 1, 1); 
+
+    */
+
+    struct timespec req = { .tv_sec = 0, .tv_nsec = 500000000 }; // 500ms
+    fflush(stdout);
+    clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
     printf("\x1b[%d;%df", 1, 1); 
 	
 }
@@ -502,7 +511,7 @@ int main(int argc, char **argv) {
 
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
 
- // gcc --std=c99 MyMonitoringTool.c -lrt -lm -o myMonitoringTool 
+ // gcc --std=c99 MyMonitoringTool.c -lc -lm -o myMonitoringTool 
 
 //   ./myMonitoringTool
 
