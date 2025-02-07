@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
+//#include <time.h>
+#include <unistd.h>
 
 #define MICROSEC_TO_SEC 1000000
 #define NANOSEC_TO_SEC 1000000000
@@ -21,6 +22,8 @@ void printStat(int samples, int tdelay) {
 		((double)(tdelay)/MICROSEC_TO_SEC), "secs )");
 }
 
+/*
+
 void refresh(int tdelay) {
 
 	int nano = tdelay*MICROSEC_TO_NANOSEC;
@@ -33,6 +36,16 @@ void refresh(int tdelay) {
 
     fflush(stdout);
     nanosleep(&sleep_time, NULL);
+    printf("\x1b[%d;%df", 1, 1); 
+	
+}
+
+*/
+
+void refresh(int tdelay) {
+
+    fflush(stdout);
+    usleep(tdelay);
     printf("\x1b[%d;%df", 1, 1); 
 	
 }
@@ -478,6 +491,8 @@ int main(int argc, char **argv) {
 }
 
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
+
+ // gcc --std=c99 MyMonitoringTool.c -lrt -o myMonitoringTool 
 
 //   ./myMonitoringTool
 
