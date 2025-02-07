@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+#define _POSIX_C_SOURCE 199309L
+
 #include <time.h>
 #include <unistd.h>
 
@@ -496,7 +499,7 @@ int main(int argc, char **argv) {
 
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
 
- // gcc --std=c99 MyMonitoringTool.c -lc -lm -o myMonitoringTool 
+ // gcc --std=c99 MyMonitoringTool.c -lrt -lm -o myMonitoringTool 
 
 //   ./myMonitoringTool
 
