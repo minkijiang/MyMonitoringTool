@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-//#include <time.h>
+#include <time.h>
 #include <unistd.h>
 
 #define MICROSEC_TO_SEC 1000000
@@ -22,7 +22,7 @@ void printStat(int samples, int tdelay) {
 		((double)(tdelay)/MICROSEC_TO_SEC), "secs )");
 }
 
-/*
+
 
 void refresh(int tdelay) {
 
@@ -40,7 +40,9 @@ void refresh(int tdelay) {
 	
 }
 
-*/
+
+
+/*
 
 void refresh(int tdelay) {
 
@@ -49,6 +51,8 @@ void refresh(int tdelay) {
     printf("\x1b[%d;%df", 1, 1); 
 	
 }
+
+*/
 
 char** initialize_graph(int sample_size) {
 	char** data_graph = (char**) malloc((ROW_NUMBER+1)*sizeof(char*));
@@ -492,7 +496,7 @@ int main(int argc, char **argv) {
 
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
 
- // gcc --std=c99 MyMonitoringTool.c -lrt -o myMonitoringTool 
+ // gcc --std=c99 MyMonitoringTool.c -lc -lm -o myMonitoringTool 
 
 //   ./myMonitoringTool
 
