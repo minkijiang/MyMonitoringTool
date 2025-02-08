@@ -392,7 +392,7 @@ int getTdelay(char* command) {
 int main(int argc, char **argv) {
 
 	for (int i = 0; i < 15; i++) {
-		printf("%lld", *getTotalCpuUsageInfo());
+		printf("\n %lld \n", *getTotalCpuUsageInfo());
 		wait_ms(500000);
 	}
 
