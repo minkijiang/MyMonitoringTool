@@ -437,7 +437,7 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
-	getTotalMemory();
+	getGhz();
 
 	/*
 
