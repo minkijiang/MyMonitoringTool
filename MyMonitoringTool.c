@@ -187,8 +187,8 @@ long long int* getTotalCpuUsageInfo() {
 double getCpuUsagePercentage(long long int* previousTotalCpuUsageInfo) {
 	long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
 
-	long long int currentTotalCpuTime = *(currentTotalCpuUsageInfo) - *(previousTotalCpuUsageInfo);
-	long long int currentCpuInactiveTime = *(currentTotalCpuUsageInfo+1) - *(previousTotalCpuUsageInfo+1);
+	//long long int currentTotalCpuTime = *(currentTotalCpuUsageInfo) - *(previousTotalCpuUsageInfo);
+	//long long int currentCpuInactiveTime = *(currentTotalCpuUsageInfo+1) - *(previousTotalCpuUsageInfo+1);
 
 	printf("\n %lld       %lld \n", *(currentTotalCpuUsageInfo+1), *(previousTotalCpuUsageInfo+1));
 
