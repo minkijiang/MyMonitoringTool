@@ -29,8 +29,6 @@ void wait_ms(int tdelay) {
 }
 
 void refresh(int tdelay) {
-
-    fflush(stdout);
     wait_ms(tdelay);
     printf("\x1b[%d;%df", 1, 1); 
 	
@@ -392,7 +390,7 @@ int getTdelay(char* command) {
 int main(int argc, char **argv) {
 
 	for (int i = 0; i < 15; i++) {
-		printf("\n %lld \n", *getTotalCpuUsageInfo());
+		printf("\n %lld \n", *(getTotalCpuUsageInfo()+1));
 		wait_ms(500000);
 	}
 
