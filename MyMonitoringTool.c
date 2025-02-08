@@ -97,7 +97,7 @@ double getTotalMemory() {
 }
 
 double getMemoryUsage() {
-	FILE* f = fopen("/proc/meminfo", "r");
+	FILE* memory_file = fopen("/proc/meminfo", "r");
 	double total_memory = getTotalMemory()*KB_TO_GB;
 
 	char word[MAX_CHAR];
@@ -106,13 +106,13 @@ double getMemoryUsage() {
 
 
 
-	while (fscanf(f, "%s %i", word, &free_memory) != EOF) {
+	while (fscanf(memory_file, "%s %i", word, &free_memory) != EOF) {
 		if (strcmp(word, memFree) == 0) {
-			fclose(f);
+			fclose(memory_file);
 			return (double)(total_memory - free_memory)/KB_TO_GB;
 		}
 	}
-	fclose(f);
+	fclose(memory_file);
 	return NOTIN;
 
 }
@@ -159,9 +159,9 @@ void getTotalCpuUsageInfo(long long int* cpu_info) {
 
 	char word[MAX_CHAR];
 
-	FILE* f = fopen("/proc/stat", "r");
+	FILE* cpuinfo_file = fopen("/proc/stat", "r");
 
-	fscanf(f, "%s %lld %lld %lld %lld %lld %lld %lld %lld %lld %lld", word, 
+	fscanf(cpuinfo_file, "%s %lld %lld %lld %lld %lld %lld %lld %lld %lld %lld", word, 
 		&cpu_times[0], &cpu_times[1], &cpu_times[2], &cpu_idle_times[0], &cpu_idle_times[1], 
 		&cpu_times[3], &cpu_times[4], &cpu_times[5], &cpu_times[6], &cpu_times[7]);
 
@@ -175,9 +175,7 @@ void getTotalCpuUsageInfo(long long int* cpu_info) {
 		*(cpu_info+1) += cpu_idle_times[i];
 	}
 
-	fclose(f);
-
-	//return cpu_info;
+	fclose(cpuinfo_file);
 
 }
 
@@ -208,7 +206,7 @@ void printCpuData(char** cpu_data_display, double current_cpu_avg) {
 }
 
 int getCoreAmount() {
-	FILE* f = fopen("/proc/cpuinfo", "r");
+	FILE* core_file = fopen("/proc/cpuinfo", "r");
 
 	char word1[MAX_CHAR];
 	char word2[MAX_CHAR];
@@ -219,28 +217,28 @@ int getCoreAmount() {
 	char cores[MAX_CHAR] = "cores";
 
 
-	while (fscanf(f, "%s %s %c %i", word1, word2, &ch, &value) != EOF) {
+	while (fscanf(core_file, "%s %s %c %i", word1, word2, &ch, &value) != EOF) {
 		if (strcmp(word1, cpu) == 0 && strcmp(word2, cores) == 0) {
-			fclose(f);
+			fclose(core_file);
 			return value;
 		}
 
 	}
 
-	fclose(f);
+	fclose(core_file);
 	return NOTIN;
 
 }
 
 double getGhz() {
 
-	FILE* f = fopen("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
+	FILE* ghz_file = fopen("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
 
 	int freq;
 
-	fscanf(f, "%i", &freq);
+	fscanf(ghz_file, "%i", &freq);
 
-	fclose(f);
+	fclose(ghz_file);
 
 	return (double)freq/1000000;
 	
@@ -388,25 +386,6 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
-	/*
-
-	long long int* p = (long long int*)malloc(2*sizeof(long long int));
-	long long int* p2 = (long long int*)malloc(2*sizeof(long long int));
-
-	getTotalCpuUsageInfo(p);
-	getTotalCpuUsageInfo(p2);
-
-	for (int i = 0; i < 15; i++) {
-		refresh(500000);
-		getTotalCpuUsageInfo(p);
-		printf("\n%lld \n", *p - *p2);
-		getTotalCpuUsageInfo(p2);
-	}
-
-	*/
-
-	
-
 	int invalid_syntax = 0;
 	
 	int show_mem = 0;
@@ -469,13 +448,10 @@ int main(int argc, char **argv) {
 		display_info(sample_size, tdelay, show_mem, show_cpu, show_cores);
 	}
 	else {
-		printf("Invalid command");
+		printf("\nInvalid command\n");
 	}
 
 	printf("\x1b[%d;%df", 50, 1); 
-
-	
-	
 
 	
 	return 0;
