@@ -193,7 +193,8 @@ double getCpuUsagePercentage(long long int* previousTotalCpuUsageInfo) {
 	free(previousTotalCpuUsageInfo);
 	free(currentTotalCpuUsageInfo);
 
-	return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
+	//return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
+	return (double)currentCpuInactiveTime/currentTotalCpuTime
 }
 
 void printCpuData(char** cpu_data_display, double current_cpu_avg) {
