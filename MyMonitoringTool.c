@@ -30,41 +30,11 @@ void wait_ms(int tdelay) {
 
 void refresh(int tdelay) {
 
-	/*
-
-	int nano = tdelay*MICROSEC_TO_NANOSEC;
-	int sec = floor(nano/NANOSEC_TO_SEC);
-	nano -= sec*NANOSEC_TO_SEC;
-
-	struct timespec sleep_time;
-    sleep_time.tv_sec = sec;  
-    sleep_time.tv_nsec = nano; 
-
-    nanosleep(&sleep_time, NULL);
-
-    */
-
     fflush(stdout);
     wait_ms(tdelay);
     printf("\x1b[%d;%df", 1, 1); 
 	
 }
-
-
-
-
-
-/*
-
-void refresh(int tdelay) {
-    fflush(stdout);
-    usleep(tdelay);
-    printf("\x1b[%d;%df", 1, 1); 
-	
-}
-
-*/
-
 
 
 char** initialize_graph(int sample_size) {
@@ -225,7 +195,7 @@ double getCpuUsagePercentage(long long int* previousTotalCpuUsageInfo) {
 	free(previousTotalCpuUsageInfo);
 	free(currentTotalCpuUsageInfo);
 
-	return ((currentTotalCpuTime - currentCpuInactiveTime)/currentTotalCpuTime)*100;
+	return ((double)(currentTotalCpuTime - currentCpuInactiveTime)/currentTotalCpuTime)*100;
 }
 
 void printCpuData(char** cpu_data_display, double current_cpu_avg) {
@@ -486,6 +456,8 @@ int main(int argc, char **argv) {
 	else {
 		printf("Invalid command");
 	}
+
+	printf("\x1b[%d;%df", 50, 1); 
 	
 
 	
