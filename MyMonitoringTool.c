@@ -397,8 +397,9 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < 15; i++) {
 		refresh(500000);
 		p = getTotalCpuUsageInfo();
-		printf("\n %lld.         %lld \n", *p, *p2);
+		getCpuUsagePercentage(currentTotalCpuUsageInfo, previousTotalCpuUsageInfo);
 		p2 = getTotalCpuUsageInfo();
+		printf("\n %lld.         %lld \n", *p, *p2);
 	}
 
 	/*
