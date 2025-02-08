@@ -69,6 +69,8 @@ char** update_graph(int current_sample_size, double max_num, double data, char**
 	
 }
 
+// graph is dynamically allocated so method below frees it
+
 void free_graph(char** data_graph, int sample_size) {
 
 	for (int i = 0; i < ROW_NUMBER+1; i++) {
@@ -117,6 +119,8 @@ double getMemoryUsage() {
 
 }
 
+//helper function for printing memory information graph
+
 void printMemoryLeftside(double max_mem, int i) {
 
 	int max_mem_digits = ceil(log10(max_mem))+3;
@@ -142,6 +146,8 @@ void printMemoryLeftside(double max_mem, int i) {
 
 }
 
+// display information contained in mem_data_display
+
 void printMemoryData(char** mem_data_display, double max_mem, double current_mem_avg) {
 	printf("%s %.2f %s", "\n\n Memory: ", current_mem_avg, "GB");
 
@@ -150,6 +156,8 @@ void printMemoryData(char** mem_data_display, double max_mem, double current_mem
 		printf("%s", *(mem_data_display+i));
 	}
 }
+
+// return total time of all cpu usage time fields, crucial information for calculating use percentage
 
 
 void getTotalCpuUsageInfo(long long int* cpu_info) {
@@ -179,6 +187,8 @@ void getTotalCpuUsageInfo(long long int* cpu_info) {
 
 }
 
+// return cpu utilization percentage based on information contained in currentTotalCpuUsageInfo and previousTotalCpuUsageInfo
+
 
 double getCpuUsagePercentage(long long int* currentTotalCpuUsageInfo, long long int* previousTotalCpuUsageInfo) {
 
@@ -187,6 +197,8 @@ double getCpuUsagePercentage(long long int* currentTotalCpuUsageInfo, long long 
 
 	return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
 }
+
+// display cpu ultilization data
 
 void printCpuData(char** cpu_data_display, double current_cpu_avg) {
 	printf("%s %.2f %s", "\n\n CPU ", current_cpu_avg, "%");
@@ -204,6 +216,8 @@ void printCpuData(char** cpu_data_display, double current_cpu_avg) {
 		printf("%s", *(cpu_data_display+i));
 	}
 }
+
+// return total number of cores computer have
 
 int getCoreAmount() {
 	FILE* core_file = fopen("/proc/cpuinfo", "r");
@@ -458,6 +472,8 @@ int main(int argc, char **argv) {
 	
 }
 
+
+
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
 
  // gcc --std=c99 MyMonitoringTool.c -Wall -Werror -lrt -lm -o myMonitoringTool 
@@ -465,6 +481,28 @@ int main(int argc, char **argv) {
 //   ./myMonitoringTool
 
 //cd Documents/UTSC_y2_proj/CSCB09_A1
+
+/*
+
+The Adventures of Skibidi Toilet
+
+Once upon a time, in the magical land of Quirkytown, there was a peculiar toilet named Skibidi. Unlike any ordinary toilet, Skibidi had an extraordinary ability: it could sing and dance!
+
+One sunny morning, Skibidi woke up feeling particularly adventurous. "Today is the day," Skibidi sang, "to step out of the bathroom and explore the world beyond these tiles." With a flush and a shimmy, Skibidi hopped out of the bathroom and onto the bustling streets of Quirkytown.
+
+As Skibidi bounced along, singing catchy tunes, it attracted the attention of the townspeople. "Look at that toilet go!" they exclaimedibidi danced through the marketplace, twirling around fruit stands and doing the cha-cha near the bakery. Children laughed and clapped, joining in the fun as Skibidi taught them its signature dance move, the "Flush Shuffle."
+
+But Skibidi's adventure was just beginning. As it approached the town square, a commotion caught its attention. A group of mischievous gnomes had taken over the town's fountain, and the villagers didn't know how to stop them. Skibidi, with its musical prowess, hatched a clever plan.
+
+"Gather 'round, everyone!" Skibidi called out. "Let's have a dance-off to distract the gnomes and reclaim our fountain!" The villagers formed a circle, and Skibidi began to dance and sing with all its might. The gnomes, curious and enchanted by the music, couldn't resist joining in. They danced and twirled, losing track of their mischief.
+
+In the midst of the dance-off, Skibidi signaled to the villagers, who quickly and quietly restored the fountain to its former glory. With a final spin and a flush, Skibidi ended the dance-off with a flourish, and the gnomes, exhausted from their dancing, scampered away in defeat.
+
+The villagers cheered and hoisted Skibidi high into the air. "Hooray for Skibidi Toilet, our hero!" they shouted. Skibidi, beaming with pride, sang a joyful tune in celebration.
+
+From that day on, Skibidi became the town's beloved mascot, bringing laughter, music, and dance wherever it went. And whenever a challenge arose, the villagers knew they could count on their trusty, dancing to save the day.
+
+*/
 
 
 
