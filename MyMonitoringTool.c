@@ -3,10 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-#define _XOPEN_SOURCE   600
-#define _POSIX_C_SOURCE 200112L
-
-//#include <time.h>
+#include <time.h>
 #include <unistd.h>
 
 #define MICROSEC_TO_SEC 1000000
@@ -26,7 +23,6 @@ void printStat(int samples, int tdelay) {
 		((double)(tdelay)/MICROSEC_TO_SEC), "secs )");
 }
 
-/*
 
 void refresh(int tdelay) {
 
@@ -44,28 +40,20 @@ void refresh(int tdelay) {
 	
 }
 
-*/
 
 
 
 
+/*
 
 void refresh(int tdelay) {
-
-	/*
-
     fflush(stdout);
     usleep(tdelay);
     printf("\x1b[%d;%df", 1, 1); 
-
-    */
-
-    struct timespec req = { .tv_sec = 0, .tv_nsec = 500000000 }; // 500ms
-    fflush(stdout);
-    clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
-    printf("\x1b[%d;%df", 1, 1); 
 	
 }
+
+*/
 
 
 
@@ -511,7 +499,7 @@ int main(int argc, char **argv) {
 
 //  gcc --std=c99 MyMonitoringTool.c -lm -o myMonitoringTool
 
- // gcc --std=c99 MyMonitoringTool.c -lc -lm -o myMonitoringTool 
+ // gcc --std=c99 MyMonitoringTool.c -lrt -lm -o myMonitoringTool 
 
 //   ./myMonitoringTool
 
