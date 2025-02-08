@@ -274,7 +274,7 @@ double getGhz() {
 
 	double max_freq = 0;
 
-	for (int i = 0; i < getCoreAmount(); i++) {
+	for (int i = 0; i < 1; i++) {
 
 		char cpu_num[256];
 		sprintf(cpu_num, "%d", i);
@@ -437,7 +437,6 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
-	getGhz();
 
 	/*
 
