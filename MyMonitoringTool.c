@@ -280,7 +280,7 @@ double getGhz() {
 
 	fclose(f);
 
-	return (double)current_freq/1000000;
+	return (double)freq/1000000;
 	
 
 }
