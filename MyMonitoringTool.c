@@ -272,31 +272,15 @@ int getCoreAmount() {
 
 double getGhz() {
 
-	double max_freq = 0;
+	FILE* f = fopen("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
 
-	for (int i = 0; i < 1; i++) {
+	int freq;
 
-		char cpu_num[256];
-		sprintf(cpu_num, "%d", i);
+	fscanf(f, "%i", &freq);
 
-		char file[256];
-		strcat(file, "/sys/devices/system/cpu/cpu");
-		strcat(file, cpu_num);
-		strcat(file, "/cpufreq/cpuinfo_max_freq");
+	fclose(f);
 
-		FILE* f = fopen(file, "r");
-
-		int current_freq;
-
-		fscanf(f, "%i", &current_freq);
-
-		if ((double)current_freq/1000000 > max_freq) {
-			max_freq = (double)current_freq/1000000;
-		}
-
-	}
-
-	return max_freq;
+	return (double)current_freq/1000000;
 	
 
 }
@@ -438,8 +422,6 @@ int getTdelay(char* command) {
 int main(int argc, char **argv) {
 
 
-	/*
-
 	int invalid_syntax = 0;
 	
 	int show_mem = 0;
@@ -504,7 +486,7 @@ int main(int argc, char **argv) {
 	else {
 		printf("Invalid command");
 	}
-	*/
+	
 
 	
 	return 0;
