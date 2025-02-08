@@ -299,9 +299,9 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 	double cpu_sum = 0;
 	double current_cpu_avg = 0;
 
-	long long int* previousTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int))
+	long long int* previousTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int));
 	getTotalCpuUsageInfo(previousTotalCpuUsageInfo);
-	long long int* currentTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int))
+	long long int* currentTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int));
 	getTotalCpuUsageInfo(currentTotalCpuUsageInfo);
 
 	printf("\033[2J\033[H");
