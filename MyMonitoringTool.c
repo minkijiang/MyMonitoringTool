@@ -391,7 +391,17 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
-	
+	long long int* p = getTotalCpuUsageInfo();
+	long long int* p2 = getTotalCpuUsageInfo();
+
+	for (int i = 0; i < 15; i++) {
+		refresh(500000);
+		p = getTotalCpuUsageInfo();
+		printf("\n %lld.         %lld \n", *p, *p2);
+		p2 = getTotalCpuUsageInfo();
+	}
+
+	/*
 
 	int invalid_syntax = 0;
 	
@@ -461,7 +471,7 @@ int main(int argc, char **argv) {
 	printf("\x1b[%d;%df", 50, 1); 
 
 	
-
+	*/
 	
 
 	
