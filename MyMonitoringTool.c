@@ -184,26 +184,15 @@ long long int* getTotalCpuUsageInfo() {
 }
 
 
-double getCpuUsagePercentage(long long int* previousTotalCpuUsageInfo) {
-	long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
+double getCpuUsagePercentage(long long int* currentTotalCpuUsageInfo, long long int* previousTotalCpuUsageInfo) {
 
 	long long int currentTotalCpuTime = *(currentTotalCpuUsageInfo) - *(previousTotalCpuUsageInfo);
 	long long int currentCpuInactiveTime = *(currentTotalCpuUsageInfo+1) - *(previousTotalCpuUsageInfo+1);
 
-	printf("\n %lld.    %lld \n", *(currentTotalCpuUsageInfo) , *(previousTotalCpuUsageInfo));
-
 	free(previousTotalCpuUsageInfo);
 	free(currentTotalCpuUsageInfo);
 
-	//return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
-
-	//printf("\n %lld.    %lld \n", currentTotalCpuTime, currentCpuInactiveTime);
-
-
-
-	return 0;
-
-	//return (double)currentCpuInactiveTime/currentTotalCpuTime;
+	return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
 }
 
 void printCpuData(char** cpu_data_display, double current_cpu_avg) {
@@ -314,6 +303,7 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 	double current_cpu_avg = 0;
 
 	long long int* previousTotalCpuUsageInfo = getTotalCpuUsageInfo();
+	long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
 
 	printf("\033[2J\033[H");
 
@@ -334,7 +324,8 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 		}
 
 		if (show_cpu == 1) {
-			cpu_usage = getCpuUsagePercentage(previousTotalCpuUsageInfo);
+			long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
+			cpu_usage = getCpuUsagePercentage(currentTotalCpuUsageInfo, previousTotalCpuUsageInfo);
 			previousTotalCpuUsageInfo = getTotalCpuUsageInfo();
 			cpu_sum += cpu_usage;
 			current_cpu_avg = cpu_sum/i;
@@ -351,6 +342,7 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 	}
 
 	free(previousTotalCpuUsageInfo);
+	free(currentTotalCpuUsageInfo);
 	free_graph(cpu_data_graph, sample_size);
 	free_graph(memory_data_graph, sample_size);
 
@@ -398,18 +390,6 @@ int getTdelay(char* command) {
 
 
 int main(int argc, char **argv) {
-
-	long long int* p;
-
-	p = getTotalCpuUsageInfo();
-
-	for (int i = 0; i < 15; i++) {
-		printf("\n %f\n", getCpuUsagePercentage(p));
-		p = getTotalCpuUsageInfo();
-		wait_ms(500000);
-	}
-
-	/*
 
 	int invalid_syntax = 0;
 	
@@ -478,7 +458,7 @@ int main(int argc, char **argv) {
 
 	printf("\x1b[%d;%df", 50, 1); 
 
-	*/
+	
 
 	
 
