@@ -3,8 +3,6 @@
 #include <string.h>
 #include <math.h>
 
-#define _POSIX_C_SOURCE 199309L
-
 #include <time.h>
 
 int main() {
@@ -12,14 +10,8 @@ int main() {
 
   int c = log10(4);
 
-  int nano = 900000000;
-  int sec = 1;
-
-  struct timespec sleep_time;
-  sleep_time.tv_sec = sec;  
-  sleep_time.tv_nsec = nano; 
-
-  nanosleep(&sleep_time, NULL);
+  clock_t start_time = clock();
+  while ((clock() - start_time) * 1000 / CLOCKS_PER_SEC < 50000);
 
   return 0;
 }
