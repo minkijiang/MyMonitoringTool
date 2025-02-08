@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+#define _POSIX_C_SOURCE 199309L
+
 #include <time.h>
 
 int main() {
