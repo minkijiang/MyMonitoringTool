@@ -165,8 +165,6 @@ void getTotalCpuUsageInfo(long long int* cpu_info) {
 		&cpu_times[0], &cpu_times[1], &cpu_times[2], &cpu_idle_times[0], &cpu_idle_times[1], 
 		&cpu_times[3], &cpu_times[4], &cpu_times[5], &cpu_times[6], &cpu_times[7]);
 
-	long long int* cpu_info = (long long int*)malloc(2*sizeof(long long int));
-
 	for (int i = 0; i < 8; i++) {
 		*(cpu_info) += cpu_times[i];
 	}
