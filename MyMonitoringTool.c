@@ -391,6 +391,12 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
+	for (int i = 0; i < 15; i++) {
+		printf("%lld", *getTotalCpuUsageInfo());
+		wait_ms(500000);
+	}
+
+	/*
 
 	int invalid_syntax = 0;
 	
@@ -458,6 +464,9 @@ int main(int argc, char **argv) {
 	}
 
 	printf("\x1b[%d;%df", 50, 1); 
+
+	*/
+
 	
 
 	
