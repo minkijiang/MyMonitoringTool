@@ -8,6 +8,7 @@
 #define MICROSEC_TO_SEC 1000000
 #define NANOSEC_TO_SEC 1000000000
 #define MICROSEC_TO_NANOSEC 1000
+#define MICROSEC_TO_MILISEC 1000
 
 #define KB_TO_GB 1000000
 
@@ -24,7 +25,7 @@ void printStat(int samples, int tdelay) {
 
 void wait_ms(int tdelay) {
 	clock_t start_time = clock();
-  	while ((clock() - start_time) * 1000 / CLOCKS_PER_SEC < tdelay);
+  	while ((clock() - start_time) * 1000 / CLOCKS_PER_SEC < tdelay/MICROSEC_TO_MILISEC);
 }
 
 void refresh(int tdelay) {
