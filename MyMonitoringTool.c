@@ -24,7 +24,7 @@ void printStat(int samples, int tdelay) {
 
 void wait_ms(int tdelay) {
 	clock_t start_time = clock();
-  	while ((clock() - start_time) * 1000 / CLOCKS_PER_SEC < 50000);
+  	while ((clock() - start_time) * 1000 / CLOCKS_PER_SEC < tdelay);
 }
 
 void refresh(int tdelay) {
@@ -436,6 +436,10 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
+	getTotalMemory();
+
+	/*
+
 	int invalid_syntax = 0;
 	
 	int show_mem = 0;
@@ -500,6 +504,7 @@ int main(int argc, char **argv) {
 	else {
 		printf("Invalid command");
 	}
+	*/
 
 	
 	return 0;
