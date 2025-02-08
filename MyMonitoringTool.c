@@ -152,7 +152,7 @@ void printMemoryData(char** mem_data_display, double max_mem, double current_mem
 }
 
 
-long long int* getTotalCpuUsageInfo() {
+void getTotalCpuUsageInfo(long long int* cpu_info) {
 
 	long long int cpu_times[8];
 	long long int cpu_idle_times[2];
@@ -179,7 +179,7 @@ long long int* getTotalCpuUsageInfo() {
 
 	fclose(f);
 
-	return cpu_info;
+	//return cpu_info;
 
 }
 
@@ -188,9 +188,6 @@ double getCpuUsagePercentage(long long int* currentTotalCpuUsageInfo, long long 
 
 	long long int currentTotalCpuTime = *(currentTotalCpuUsageInfo) - *(previousTotalCpuUsageInfo);
 	long long int currentCpuInactiveTime = *(currentTotalCpuUsageInfo+1) - *(previousTotalCpuUsageInfo+1);
-
-	free(previousTotalCpuUsageInfo);
-	free(currentTotalCpuUsageInfo);
 
 	return (1 - (double)currentCpuInactiveTime/currentTotalCpuTime)*100;
 }
@@ -302,8 +299,10 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 	double cpu_sum = 0;
 	double current_cpu_avg = 0;
 
-	long long int* previousTotalCpuUsageInfo = getTotalCpuUsageInfo();
-	long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
+	long long int* previousTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int))
+	getTotalCpuUsageInfo(previousTotalCpuUsageInfo);
+	long long int* currentTotalCpuUsageInfo = (long long int*)malloc(2*sizeof(long long int))
+	getTotalCpuUsageInfo(currentTotalCpuUsageInfo);
 
 	printf("\033[2J\033[H");
 
@@ -324,9 +323,9 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 		}
 
 		if (show_cpu == 1) {
-			currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
+			getTotalCpuUsageInfo(currentTotalCpuUsageInfo);
 			cpu_usage = getCpuUsagePercentage(currentTotalCpuUsageInfo, previousTotalCpuUsageInfo);
-			previousTotalCpuUsageInfo = getTotalCpuUsageInfo();
+			getTotalCpuUsageInfo(previousTotalCpuUsageInfo);
 			cpu_sum += cpu_usage;
 			current_cpu_avg = cpu_sum/i;
 			update_graph(i, 100, cpu_usage, cpu_data_graph);
@@ -391,18 +390,24 @@ int getTdelay(char* command) {
 
 int main(int argc, char **argv) {
 
-	long long int* p = getTotalCpuUsageInfo();
-	long long int* p2 = getTotalCpuUsageInfo();
+	/*
+
+	long long int* p = (long long int*)malloc(2*sizeof(long long int));
+	long long int* p2 = (long long int*)malloc(2*sizeof(long long int));
+
+	getTotalCpuUsageInfo(p);
+	getTotalCpuUsageInfo(p2);
 
 	for (int i = 0; i < 15; i++) {
 		refresh(500000);
-		p = getTotalCpuUsageInfo();
+		getTotalCpuUsageInfo(p);
 		printf("\n%lld \n", *p - *p2);
-		printf("\n%lld          %lld \n", *p , *p2);
-		p2 = getTotalCpuUsageInfo();
+		getTotalCpuUsageInfo(p2);
 	}
 
-	/*
+	*/
+
+	
 
 	int invalid_syntax = 0;
 	
@@ -472,7 +477,6 @@ int main(int argc, char **argv) {
 	printf("\x1b[%d;%df", 50, 1); 
 
 	
-	*/
 	
 
 	
