@@ -324,7 +324,7 @@ void display_info(int sample_size, int tdelay, int show_mem, int show_cpu, int s
 		}
 
 		if (show_cpu == 1) {
-			long long int* currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
+			currentTotalCpuUsageInfo = getTotalCpuUsageInfo();
 			cpu_usage = getCpuUsagePercentage(currentTotalCpuUsageInfo, previousTotalCpuUsageInfo);
 			previousTotalCpuUsageInfo = getTotalCpuUsageInfo();
 			cpu_sum += cpu_usage;
@@ -390,6 +390,8 @@ int getTdelay(char* command) {
 
 
 int main(int argc, char **argv) {
+
+	
 
 	int invalid_syntax = 0;
 	
